@@ -23,8 +23,15 @@ trait PConfig {
 trait ConfigBuiler extends (PConfig => ProducerConfig) {
 
   def apply(pconfig: PConfig): ProducerConfig = {
-    new ProducerConfig(
-      new Properties()
-    )
+    val props  =  new Properties()
+    props.put("compression.codec", pconfig.compression)
+    props.put("producer.type", pconfig.synch)
+    props.put("metadata.broker.list", pconfig.brokerList)
+    props.put("batch.num.messages", pconfig.batchSize.toString)
+    props.put("message.send.max.retries", pconfig.retries.toString)
+    props.put("request.required.acks", pconfig.maxTimeToBlockInAsyncMode.toString)
+    props.put("client.id", pconfig.clientId)
+
+    new ProducerConfig(props)
   }
 }
