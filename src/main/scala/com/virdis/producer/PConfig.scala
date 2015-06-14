@@ -2,7 +2,7 @@ package com.virdis.producer
 
 import java.util.Properties
 
-import kafka.producer.ProducerConfig
+import kafka.producer.{Producer, ProducerConfig}
 
 /**
  * Created by sandeep on 6/7/15.
@@ -20,9 +20,9 @@ trait PConfig {
 
 }
 
-trait ConfigBuiler extends (PConfig => ProducerConfig) {
+trait ConfigBuilder extends (PConfig => Producer[AnyRef, AnyRef]) {
 
-  def apply(pconfig: PConfig): ProducerConfig = {
+  def apply(pconfig: PConfig): Producer[AnyRef, AnyRef] = {
     val props  =  new Properties()
     props.put("compression.codec", pconfig.compression)
     props.put("producer.type", pconfig.synch)
@@ -32,6 +32,6 @@ trait ConfigBuiler extends (PConfig => ProducerConfig) {
     props.put("request.required.acks", pconfig.maxTimeToBlockInAsyncMode.toString)
     props.put("client.id", pconfig.clientId)
 
-    new ProducerConfig(props)
+    new Producer[AnyRef, AnyRef](new ProducerConfig(props))
   }
 }
