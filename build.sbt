@@ -18,4 +18,4 @@ scalacOptions in Test ++= Seq("-Yrangepos")
 
 resolvers ++= Seq("snapshots", "releases").map(Resolver.sonatypeRepo)
 
-initialCommands := "import com.virdis.producer._"
+initialCommands := "import com.virdis.learningkafka.MyTopicProducer"
