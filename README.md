@@ -1,4 +1,3 @@
-# learning-kafka
-Learning Kafka
+### Learning Kafka
 
-### Read this blog http://functional-imperative.com/svirdi/posts/5 for more details.
+###### Read this blog http://functional-imperative.com/svirdi/posts/5 for more details.
